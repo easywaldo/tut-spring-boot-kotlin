@@ -20,3 +20,10 @@ class User(
 		var lastname: String,
 		var description: String? = null,
 		@Id @GeneratedValue var id: Long? = null)
+
+
+@Entity
+class Tags(
+	var tag: String,
+	@ManyToOne var article: Article,
+	@Id @GeneratedValue var id: Long? = null)

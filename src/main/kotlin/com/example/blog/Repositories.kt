@@ -11,3 +11,7 @@ interface UserRepository : CrudRepository<User, Long> {
 	fun findByLogin(login: String): User?
 }
 
+interface TagsRepository: CrudRepository<Tags, Long> {
+	fun findByTag(tag: String): Iterable<Tags>
+	fun findByArticle(article: Article): Iterable<Tags>
+}

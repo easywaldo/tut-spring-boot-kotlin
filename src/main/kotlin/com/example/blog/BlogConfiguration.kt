@@ -9,20 +9,35 @@ class BlogConfiguration {
 
 	@Bean
 	fun databaseInitializer(userRepository: UserRepository,
-							articleRepository: ArticleRepository) = ApplicationRunner {
+							articleRepository: ArticleRepository,
+							tagsRepository: TagsRepository,
+	) = ApplicationRunner {
 
 		val johnDoe = userRepository.save(User("johnDoe", "John", "Doe"))
-		articleRepository.save(Article(
-				title = "Lorem",
+		val article_one = articleRepository.save(Article(
+				title = "Kotlin",
 				headline = "Lorem",
-				content = "dolor sit amet",
+				content = "kotlin is latest language.",
 				author = johnDoe
 		))
-		articleRepository.save(Article(
-				title = "Ipsum",
+		val article_two = articleRepository.save(Article(
+				title = "Spring",
 				headline = "Ipsum",
-				content = "dolor sit amet",
+				content = "sample",
 				author = johnDoe
 		))
+
+		tagsRepository.save(
+			Tags(
+				tag = "language",
+				article = article_one,
+			)
+		)
+		tagsRepository.save(
+			Tags(
+				tag = "kotlin",
+				article = article_one,
+			)
+		)
 	}
 }
