@@ -13,7 +13,7 @@ class ArticleController(private val repository: ArticleRepository) {
 
 	@GetMapping("/{slug}")
 	fun findOne(@PathVariable slug: String) =
-			repository.findBySlug(slug) ?: throw ResponseStatusException(NOT_FOUND, "This article does not exist")
+			repository.findBySlug(slug.lowercase()) ?: throw ResponseStatusException(NOT_FOUND, "This article does not exist")
 
 }
 
