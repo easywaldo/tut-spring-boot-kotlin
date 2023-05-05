@@ -1,5 +1,6 @@
 package com.example.blog
 
+import com.example.blog.dto.ArticleCommandDto
 import com.example.blog.dto.ArticleQueryDto
 import org.springframework.http.HttpStatus.*
 import org.springframework.web.bind.annotation.*
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException
 class ArticleController(
 	private val repository: ArticleRepository,
 	private val tagsRepository: TagsRepository,
+	private val userRepository: UserRepository,
 ) {
 
 	@GetMapping("/")
@@ -26,6 +28,16 @@ class ArticleController(
 
 		val responseDto = article.responseDto(article.author, tags.toList())
 		return responseDto
+	}
+
+	@PostMapping("/")
+	fun create(@RequestBody command: ArticleCommandDto) {
+		repository.save(Article(
+			title = command.title,
+			headline = command.headLine,
+			content = command.content,
+			author = userRepository.findById(command.authorId).get(),
+		))
 	}
 
 }
