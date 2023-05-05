@@ -32,12 +32,20 @@ class ArticleController(
 
 	@PostMapping("/")
 	fun create(@RequestBody command: ArticleCommandDto) {
+
 		repository.save(Article(
 			title = command.title,
 			headline = command.headLine,
 			content = command.content,
 			author = userRepository.findById(command.authorId).get(),
-		))
+		)).also {
+			command.tagList.forEach {t ->
+				tagsRepository.save(Tags(
+					tag = t.name,
+					article = it,
+				))
+			}
+		}
 	}
 
 }
