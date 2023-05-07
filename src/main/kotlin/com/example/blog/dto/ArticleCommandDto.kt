@@ -8,3 +8,8 @@ data class ArticleCommandDto(val title: String,
 ) {
     data class TagCommandDto(val name: String)
 }
+
+data class UpdateArticleCommandDto(val headLine: String,
+                                   val content: String,
+                                   val tagList: List<ArticleCommandDto.TagCommandDto>
+)

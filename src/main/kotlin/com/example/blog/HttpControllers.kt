@@ -2,7 +2,9 @@ package com.example.blog
 
 import com.example.blog.dto.ArticleCommandDto
 import com.example.blog.dto.ArticleQueryDto
+import com.example.blog.dto.UpdateArticleCommandDto
 import org.springframework.http.HttpStatus.*
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
 
@@ -43,6 +45,23 @@ class ArticleController(
 				tagsRepository.save(Tags(
 					tag = t.name,
 					article = it,
+				))
+			}
+		}
+	}
+
+	@PutMapping("/{id}")
+	@Transactional
+	fun update(@PathVariable id: Long,
+			   @RequestBody command: UpdateArticleCommandDto) {
+
+		repository.findById(id).also {
+			it.get().headline = command.headLine
+			it.get().content = command.content
+			tagsRepository.deleteByArticle(it.get())
+			command.tagList.forEach{
+				t -> tagsRepository.save(
+					Tags(tag = t.name, article = it.get(),
 				))
 			}
 		}

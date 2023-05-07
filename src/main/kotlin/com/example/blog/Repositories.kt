@@ -14,4 +14,5 @@ interface UserRepository : CrudRepository<User, Long> {
 interface TagsRepository: CrudRepository<Tags, Long> {
 	fun findByTag(tag: String): Iterable<Tags>
 	fun findByArticle(article: Article): Iterable<Tags>
+	fun deleteByArticle(article: Article)
 }
