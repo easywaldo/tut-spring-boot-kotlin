@@ -67,6 +67,13 @@ class ArticleController(
 		}
 	}
 
+	@DeleteMapping("/{id}")
+	@Transactional
+	fun delete(@PathVariable id: Long) {
+		tagsRepository.deleteByArticle(repository.findById(id).get())
+		repository.deleteById(id)
+	}
+
 }
 
 fun Article.responseDto(user: User, tags: List<Tags>) = ArticleQueryDto(
