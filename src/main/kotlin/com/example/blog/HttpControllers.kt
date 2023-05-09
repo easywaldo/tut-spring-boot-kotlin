@@ -32,6 +32,9 @@ class ArticleController(
 		return responseDto
 	}
 
+	@GetMapping("/tags")
+	fun findTags() = tagsRepository.findAll()
+
 	@PostMapping("/")
 	fun create(@RequestBody command: ArticleCommandDto) {
 
