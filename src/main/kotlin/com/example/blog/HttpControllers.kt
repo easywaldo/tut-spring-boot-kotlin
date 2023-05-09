@@ -74,7 +74,7 @@ class ArticleController(
 	@Transactional
 	fun delete(@PathVariable id: Long) {
 		tagsRepository.deleteByArticle(repository.findById(id).get())
-		repository.deleteById(id)
+//		repository.deleteById(id)
 	}
 
 }

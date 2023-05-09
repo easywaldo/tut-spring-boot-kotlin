@@ -25,5 +25,5 @@ class User(
 @Entity
 class Tags(
 	var tag: String,
-	@ManyToOne var article: Article,
+	@ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE]) var article: Article,
 	@Id @GeneratedValue var id: Long? = null)
