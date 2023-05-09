@@ -73,9 +73,7 @@ class ArticleController(
 	@DeleteMapping("/{id}")
 	@Transactional
 	fun delete(@PathVariable id: Long) {
-//		tagsRepository.deleteByArticle(repository.findById(id).get())
-//		repository.deleteById(id)
-
+		tagsRepository.deleteByArticle(repository.findById(id).get())
 		repository.deleteById(id)
 	}
 
